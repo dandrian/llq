@@ -9,7 +9,7 @@ QUEEN_SPEED = 60
 
 QEUEEN_HP = 100
 
-GOLD_PER_TURN = 10
+GOLD_PER_TURN = 0
 
 CREEP_AGING = 1
 
@@ -23,6 +23,7 @@ GIANT_COST = 140
 GIANT_SQUAD = 1
 
 NO_STRUCTURE = -1
+GOLDMINE = 0
 TOWER = 1
 BARRACKS = 2
 
@@ -51,9 +52,9 @@ class Site:
         self.site_id = site_id
         
 class SiteStatus:
-    def __init__(self, ignore_1, ignore_2, structure_type, owner, param_1, param_2):
-        self.ignore_1 = ignore_1
-        self.ignore_2 = ignore_2
+    def __init__(self, gold, max_mine_size, structure_type, owner, param_1, param_2):
+        self.gold = gold
+        self.max_mine_size = max_mine_size
         self.structure_type = structure_type
         self.owner = owner
         self.param_1 = param_1
@@ -99,17 +100,17 @@ while True:
         # ignore_2: used in future leagues
         # structure_type: -1 = No structure, 2 = Barracks
         # owner: -1 = No structure, 0 = Friendly, 1 = Enemy
-        site_id, ignore_1, ignore_2, structure_type, owner, param_1, param_2 = [int(j) for j in input().split()]
-        currents[site_id] = SiteStatus(ignore_1, ignore_2, structure_type, owner, param_1, param_2)
+        site_id, gold, max_mine_size, structure_type, owner, param_1, param_2 = [int(j) for j in input().split()]
+        currents[site_id] = SiteStatus(gold, max_mine_size, structure_type, owner, param_1, param_2)
         if structure_type == NO_STRUCTURE:
             empty_sites.append(site_id)
         if owner == FRIENDLY:
             if structure_type == TOWER:
                 owned_towers.append(site_id)
             if structure_type == BARRACKS:
-                if param_1 == KNIGHT_BARRACKS:
+                if param_2 == KNIGHT_BARRACKS:
                     owned_knight_barracks.append(site_id)
-                elif param_1 == ARCHER_BARRACKS:
+                elif param_2 == ARCHER_BARRACKS:
                     owned_archer_barracks.append(site_id)
     
     num_units = int(input())    
@@ -122,7 +123,7 @@ while True:
             else:
                 enemy_queen = Unit(x, y)
 
-    print(owned_knight_barracks, file=sys.stderr)
+    # print(owned_knight_barracks, file=sys.stderr)
     if len(owned_knight_barracks) == 0:
         target = find_closest_among(empty_sites, own_queen, sites_coord)
         if target != -1:
