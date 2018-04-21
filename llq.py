@@ -1,9 +1,6 @@
 import sys
 import math
 
-# Auto-generated code below aims at helping you parse
-# the standard input according to the problem statement.
-
 class Site:
     def __init__(self, x, y, radius, site_id):
         self.x = x
@@ -57,9 +54,6 @@ while True:
         # owner: -1 = No structure, 0 = Friendly, 1 = Enemy
         site_id, ignore_1, ignore_2, structure_type, owner, param_1, param_2 = [int(j) for j in input().split()]
         currents[site_id] = SiteStatus(ignore_1, ignore_2, structure_type, owner, param_1, param_2)
-        #if owner != 0:
-        #d = distance(wrapped.sites[
-    
     
     num_units = int(input())    
     for i in range(num_units):
@@ -84,17 +78,12 @@ while True:
         if value.owner == 0 and gold >= 80:
             build_list.append(str(key))
             gold -= 80
-    # Write an action using print
-    # To debug: print("Debug messages...", file=sys.stderr)
-
-
-    # First line: A valid queen action
-    # Second line: A set of training instructions
+    
     if target == -1:
-        print("WAIT")
+        print('WAIT')
     else:
-        print("BUILD {0} BARRACKS-KNIGHT".format(target))
+        print('BUILD {0} BARRACKS-KNIGHT'.format(target))
     if len(build_list) == 0:
-        print("TRAIN")
+        print('TRAIN')
     else:
-        print("TRAIN {0}".format(" ".join(build_list)))
+        print('TRAIN {0}'.format(' '.join(build_list)))
