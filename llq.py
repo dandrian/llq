@@ -1,6 +1,48 @@
 import sys
 import math
 
+FIELD_WITDH = 1920
+FIELD_HEIGHT = 1000
+
+QUEEN_R = 30
+QUEEN_SPEED = 60
+
+QEUEEN_HP = 100
+
+GOLD_PER_TURN = 10
+
+CREEP_AGING = 1
+
+KNIGHT_COST = 80
+KNIGHT_SQUAD = 4
+
+ARCHER_COST = 100
+ARCHER_SQUAD = 2
+
+GIANT_COST = 140
+GIANT_SQUAD = 1
+
+EMPTY_SITE = -1
+TOWER = 1
+BARRACKS = 2
+
+NO_OWNER = -1
+FIENDLY = 0
+ENEMY = 1
+
+KNIGHT_BARRAKS = 0
+ARCHER_BARRAKS = 1
+GIANT_BARRAKS = 2
+
+FRIENDLY_UNIT = 0
+ENEMY_UNIT = 1
+
+QUEEN = -1
+KNIGHT = 0
+ARCHER = 1
+GIANT = 2
+
+
 class Site:
     def __init__(self, x, y, radius, site_id):
         self.x = x
@@ -47,6 +89,9 @@ while True:
     currents = {}
     target = -1
     min_d = 100000
+    owned_knights_barraks = []
+    owned_archer_barraks = []
+    owned_towers = []
     for i in range(num_sites):
         # ignore_1: used in future leagues
         # ignore_2: used in future leagues
@@ -54,6 +99,7 @@ while True:
         # owner: -1 = No structure, 0 = Friendly, 1 = Enemy
         site_id, ignore_1, ignore_2, structure_type, owner, param_1, param_2 = [int(j) for j in input().split()]
         currents[site_id] = SiteStatus(ignore_1, ignore_2, structure_type, owner, param_1, param_2)
+        if owner == 0:
     
     num_units = int(input())    
     for i in range(num_units):
