@@ -22,7 +22,7 @@ ARCHER_SQUAD = 2
 GIANT_COST = 140
 GIANT_SQUAD = 1
 
-EMPTY_SITE = -1
+NO_STRUCTURE = -1
 TOWER = 1
 BARRACKS = 2
 
@@ -69,14 +69,14 @@ class Unit:
 
 def find_closest_among(sites, unit, sites_coord):
     min_d = 200000
-    result = -1
+    closest_site = -1
     for site in sites:
         d = distance(unit.x, unit.y, sites_coord[site].x, sites_coord[site].y)
         if d < min_d:
             min_d = d
-            result = site
-            print('{0} {1}'.format(site, d), file=stderr)
-    return site
+            closest_site = site
+            # print('{0} {1}'.format(site, d), file=sys.stderr)
+    return closest_site
 
 num_sites = int(input())
 sites_coord = {}
@@ -122,7 +122,7 @@ while True:
             else:
                 enemy_queen = Unit(x, y)
 
-
+    print(owned_knight_barracks, file=sys.stderr)
     if len(owned_knight_barracks) == 0:
         target = find_closest_among(empty_sites, own_queen, sites_coord)
         if target != -1:
