@@ -75,6 +75,7 @@ def find_closest_among(sites, unit, sites_coord):
         if d < min_d:
             min_d = d
             result = site
+            print('{0} {1}'.format(site, d), file=stderr)
     return site
 
 num_sites = int(input())
@@ -100,7 +101,7 @@ while True:
         # owner: -1 = No structure, 0 = Friendly, 1 = Enemy
         site_id, ignore_1, ignore_2, structure_type, owner, param_1, param_2 = [int(j) for j in input().split()]
         currents[site_id] = SiteStatus(ignore_1, ignore_2, structure_type, owner, param_1, param_2)
-    	if structure_type == NO_STRUCTURE:
+        if structure_type == NO_STRUCTURE:
             empty_sites.append(site_id)
         if owner == FRIENDLY:
             if structure_type == TOWER:
