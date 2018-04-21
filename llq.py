@@ -27,12 +27,12 @@ TOWER = 1
 BARRACKS = 2
 
 NO_OWNER = -1
-FIENDLY = 0
+FRIENDLY = 0
 ENEMY = 1
 
-KNIGHT_BARRAKS = 0
-ARCHER_BARRAKS = 1
-GIANT_BARRAKS = 2
+KNIGHT_BARRACKS = 0
+ARCHER_BARRACKS = 1
+GIANT_BARRACKS = 2
 
 FRIENDLY_UNIT = 0
 ENEMY_UNIT = 1
@@ -89,9 +89,10 @@ while True:
     currents = {}
     target = -1
     min_d = 100000
-    owned_knights_barraks = []
-    owned_archer_barraks = []
+    owned_knight_barracks = []
+    owned_archer_barracks = []
     owned_towers = []
+    empty_sites = []
     for i in range(num_sites):
         # ignore_1: used in future leagues
         # ignore_2: used in future leagues
@@ -99,7 +100,16 @@ while True:
         # owner: -1 = No structure, 0 = Friendly, 1 = Enemy
         site_id, ignore_1, ignore_2, structure_type, owner, param_1, param_2 = [int(j) for j in input().split()]
         currents[site_id] = SiteStatus(ignore_1, ignore_2, structure_type, owner, param_1, param_2)
-        if owner == 0:
+        if owner == FRIENDLY:
+            if structure_type == TOWER:
+                owned_towers.append(site_id)
+            elif structure_type == BARRACKS:
+                if param_1 == KNIGHT_BARRACKS:
+                    owned_knight_barracks.append(site_id)
+                elif param_1 == ARCHER_BARRACKS:
+                    owned_archer_barracks.append(site_id)
+        elif owner == EMPTY_SITE:
+            empty_sites.append(site_id)
     
     num_units = int(input())    
     for i in range(num_units):
